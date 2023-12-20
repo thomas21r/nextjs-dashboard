@@ -1,12 +1,12 @@
-import { sql } from '@vercel/postgres';
+import {sql} from '@vercel/postgres';
 import {
   CustomerField,
   CustomersTableType,
   InvoiceForm,
   InvoicesTable,
   LatestInvoiceRaw,
-  User,
   Revenue,
+  User,
 } from './definitions';
 import { formatCurrency } from './utils';
 import { unstable_noStore as noStore } from "next/cache";
@@ -21,7 +21,7 @@ export async function fetchRevenue() {
     // Don't do this in production :)
 
     console.log('Fetching revenue data...');
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+    // await new Promise((resolve) => setTimeout(resolve, 3000));
 
     const data = await sql<Revenue>`SELECT * FROM revenue`;
 
@@ -177,7 +177,7 @@ export async function fetchInvoiceById(id: string) {
     return invoice[0];
   } catch (error) {
     console.error('Database Error:', error);
-    throw new Error('Failed to fetch invoice.');
+    // throw new Error('Failed to fetch invoice.');
   }
 }
 
@@ -193,8 +193,7 @@ export async function fetchCustomers() {
       ORDER BY name ASC
     `;
 
-    const customers = data.rows;
-    return customers;
+    return data.rows;
   } catch (err) {
     console.error('Database Error:', err);
     throw new Error('Failed to fetch all customers.');
